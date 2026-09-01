@@ -8,7 +8,7 @@ const Usuario = require("./usuario");
 require("dotenv").config();
 
 // Endpoint que devuelve la lista de usuarios.
-module.exports = async (req, res) => {
+async function handler(req, res) {
   try {
     // Conectamos con MongoDB Atlas.
     await mongoose.connect(process.env.MONGODB_URI);
@@ -17,11 +17,17 @@ module.exports = async (req, res) => {
     const usuarios = await Usuario.find();
 
     // Devolvemos la lista de usuarios en formato JSON.
-    res.json(usuarios);
+    res.status(200).json(usuarios);
   } catch (error) {
+    // Mostramos el error en los logs de Vercel.
+    console.error(error);
+
     // Devolvemos un error si la conexión o consulta falla.
     res.status(500).json({
       error: "Error al obtener los usuarios"
     });
   }
-};
+}
+
+// Exportamos la función que utilizará Vercel.
+module.exports = handler;
