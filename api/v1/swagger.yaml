@@ -1,0 +1,44 @@
+openapi: 3.0.0
+
+info:
+  title: MI API FINAL
+  version: 1.0.0
+  description: Documentación de la API
+
+paths:
+  /api/v1/hello.js:
+    get:
+      summary: Devuelve un saludo
+      responses:
+        '200':
+          description: Respuesta correcta
+
+  /api/v1/login.js:
+    post:
+      summary: Inicia sesión y devuelve un token JWT
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: Token JWT generado
+        '401':
+          description: Credenciales incorrectas
+
+  /api/v1/usuarios.js:
+    get:
+      summary: Devuelve la lista de usuarios
+      responses:
+        '200':
+          description: Lista de usuarios
+        '401':
+          description: Token no proporcionado o inválido
+          
