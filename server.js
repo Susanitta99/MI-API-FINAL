@@ -17,7 +17,9 @@ app.get("/api/v1/hello", hello);
 app.get("/api/v1/saludo", saludo);
 app.post("/api/v1/login", login);
 app.get("/api/v1/usuarios", usuarios);
-app.get("/api/v1/swagger", swagger);
+
+app.use("/api-docs", swagger.serve);
+app.use("/api-docs", swagger.setup);
 
 const PORT = process.env.PORT || 3000;
 
